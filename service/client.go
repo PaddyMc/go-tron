@@ -4,8 +4,8 @@ import (
 	"context"
 /*	"crypto/ecdsa"*/
 	"github.com/go-tron/api"
-/*	"github.com/go-tron/common/base58"
-	"github.com/go-tron/common/crypto"*/
+	"github.com/go-tron/common/base58"
+/*	"github.com/go-tron/common/crypto"*/
 	/*"github.com/go-tron/common/hexutil"*/
 	"github.com/go-tron/core"
 	//"github.com/tronprotocol/go-client-api/util"
@@ -49,7 +49,7 @@ func (g *GrpcClient) TotalTransaction() *api.NumberMessage {
 	return result
 }
 
-func (g *GrpcClient) GetBlockByNum(num int64) *core.Block {
+func (g *GrpcClient) GetBlockByNum(num int64) *api.BlockExtention {
 	numMessage := new(api.NumberMessage)
 	numMessage.Num = num
 
@@ -62,3 +62,26 @@ func (g *GrpcClient) GetBlockByNum(num int64) *core.Block {
 	return result
 }
 
+func (g *GrpcClient) GetAccount(address string) *core.Account {
+	account := new(core.Account)
+
+	account.Address = base58.DecodeCheck(address)
+
+	result, err := g.Client.GetAccount(context.Background(), account)
+
+	if err != nil {
+		log.Fatalf("get account error: %v\n", err)
+	}
+
+	return result
+}
+
+func (g *GrpcClient) GetNowBlock() *api.BlockExtention {
+	result, err := g.Client.GetNowBlock2(context.Background(), new(api.EmptyMessage))
+
+	if err != nil {
+		log.Fatalf("get now block error: %v\n", err)
+	}
+
+	return result
+}
