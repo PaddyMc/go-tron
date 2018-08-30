@@ -1,34 +1,38 @@
 package calculations
 
 import (
-	"flag"
+	//"flag"
 	"fmt"
 	"github.com/go-tron/service"
 	//"github.com/go-tron/common/hexutil"
 	"log"
-	//"math"
+	//"time"
 	"strings"
 )
 
 type CalculationClient struct {
+	grpcAddress string
 }
 
-func NewClaculationClient() *CalculationClient {
-	client := new(CalculationClient)
-	return client
+func NewClaculationClient(address string) *CalculationClient {
+	calc := new(CalculationClient)
+	calc.grpcAddress = address
+	return calc
 }
 
-func (g *CalculationClient) CalculateCirculatingSupply() {
-	grpcAddress := flag.String("grpcAddress", "",
-		"gRPC address: <IP:port> example: -grpcAddress localhost:50051")
+func (c *CalculationClient) CalculateCirculatingSupply() {
+	// grpcAddress := flag.String("grpcAddress", "",
+	// 	"gRPC address: <IP:port> example: -grpcAddress localhost:50051")
 
-	flag.Parse()
+	//flag.Parse()
 
-	if strings.EqualFold("", *grpcAddress) && len(*grpcAddress) == 0 {
+	if strings.EqualFold("", c.grpcAddress) && len(c.grpcAddress) == 0 {
 		log.Fatalln("./total-transaction -grpcAddress localhost:50051")
 	}
 
-	client := service.NewGrpcClient(*grpcAddress)
+	fmt.Printf("grpcAddress: \t\t%s\n", c.grpcAddress)
+
+	client := service.NewGrpcClient(c.grpcAddress)
 	client.Start()
 	defer client.Conn.Close()
 
@@ -43,7 +47,7 @@ func (g *CalculationClient) CalculateCirculatingSupply() {
 
 	block := client.GetNowBlock()
 	blockHeight := block.GetBlockHeader().RawData.Number
-	
+	fmt.Printf("blockHeight: \t\t%v\n", blockHeight)
 	// Block Produce Rewards, getLatestBlock * 32(reward for each block) 	=>	 		59,696,032	+
 	blockProduceRewards := blockHeight * 32
 
@@ -83,7 +87,7 @@ func (g *CalculationClient) CalculateCirculatingSupply() {
 
 	totalCirculatingSupply := int64(totalAmountOfTron) + int64(blockProduceRewards) + int64(nodeRewards) - int64(independanceDayBurn) - int64(feeBurnedNum) - int64(foundationFee)
 
-	fmt.Printf("\ntotalCirculatingSupply: %v\n", totalCirculatingSupply)
+	fmt.Printf("\ntotalCirculatingSupply: %v\n\n\n\n", totalCirculatingSupply)
 	// fmt.Printf("startFeeBurnedNum: %v\n", startFeeBurnedNum)
 	// fmt.Printf("account.Balance: %v\n", account.Balance)
 
