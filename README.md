@@ -13,7 +13,7 @@ This will start the tron node, and expose port 50051 on localhost
 	Dependencies
 </h3>
 
-go get github.com/tronprotocol/grpc-gateway <br/>
+go get github.com/golang/protobuf <br/>
 go get google.golang.org/grpc <br/>
 go get github.com/shengdoushi/base58 <br/>
 
