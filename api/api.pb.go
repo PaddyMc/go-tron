@@ -7,7 +7,7 @@ package api //
 import proto "github.com/golang/protobuf/proto"
 import fmt "fmt"
 import math "math"
-import core "github.com/go-tron/core"
+import core "github.com/PaddyMc/go-tron/core"
 //import _ "google/api"
 
 import (

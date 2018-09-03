@@ -1,4 +1,4 @@
-package main
+/*package main
 
 import (
 	"github.com/go-tron/calculations"
@@ -14,4 +14,4 @@ func main() {
 		fmt.Printf("Total Circulating Supply: %v\t\n", totalCirculatingSupply)
 		time.Sleep(time.Second * 10)
 	}
-}
+}*/

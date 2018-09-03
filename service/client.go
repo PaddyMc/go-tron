@@ -2,9 +2,9 @@ package service
 
 import (
 	"context"
-	"github.com/go-tron/api"
-	"github.com/go-tron/common/base58"
-	"github.com/go-tron/core"
+	"github.com/PaddyMc/go-tron/api"
+	"github.com/PaddyMc/go-tron/common/base58"
+	"github.com/PaddyMc/go-tron/core"
 	"google.golang.org/grpc"
 	"log"
 )

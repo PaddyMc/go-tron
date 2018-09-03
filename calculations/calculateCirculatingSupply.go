@@ -2,7 +2,7 @@ package calculations
 
 import (
 //	"fmt"
-	"github.com/go-tron/service"
+	"github.com/PaddyMc/go-tron/service"
 	"log"
 	"strings"
 )
@@ -44,15 +44,6 @@ func (c *CalculationClient) CalculateCirculatingSupply() int64{
 	totalCirculatingSupply := int64(totalAmountOfTron) + int64(blockRewards) + int64(nodeRewards) - int64(independanceDayBurn) - int64(feeBurnedNum) - int64(foundationFreeze)
 
 	return totalCirculatingSupply
-
-	// block := client.GetBlockByNum(0)
-	// fmt.Printf("block: %v\n", block.GetTransactions())
-
-	// for i, v := range  block.GetTransactions() {
-	// 	//addr := hexutil.Decode(v.Address)
-	// 	value := hexutil.Decode(v.Transaction.RawData.Contract[0].Parameter.Value)
-	// 	fmt.Printf("index: %d, rd: %s\n", i, value)
-	// }
 
 	// fmt.Printf("grpcAddress: \t\t%s\n", c.grpcAddress)
 	// fmt.Printf("blockHeight: \t\t%v\n", blockHeight)
